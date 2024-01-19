@@ -1,0 +1,5 @@
+#do this first
+sudo docker build --tag container .
+
+#then do this in main directory 
+sudo docker run --interactive --tty --rm --mount type=bind,source="$(pwd)"/,target=/your_code container <shell>

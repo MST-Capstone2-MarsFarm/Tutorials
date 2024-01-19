@@ -1,0 +1,12 @@
+name: plantenv
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - anaconda::pandas
+  - anaconda::opencv
+  - conda-forge::plantcv
+  - pip:
+    - parallel-pandas
