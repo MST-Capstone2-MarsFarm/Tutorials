@@ -1,21 +1,17 @@
-FROM jupyter/minimal-notebook
-LABEL maintainer="PlantCV <plantcv@danforthcenter.org>"
+FROM mambaorg/micromamba:1.5.6
 
 USER root
 
+#this is all I need for now
+#If we need more packages, then we'll just keep on adding more here
 RUN apt-get update && apt-get install -y libgl1-mesa-glx && rm -rf /var/lib/apt/lists/*
 
 # Copy source files
-COPY plant_environment.yml /tmp/plant_environment.yml
-
-# Change working directory and modify requirements.txt
-#RUN cd /tmp && sed -i'' -e 's/opencv.*//g' requirements.txt
+COPY --chown=$MAMBA_USER:$MAMBA_USER plant_environment.yml /tmp/plant_environment.yml
 
 # Install PlantCV
-RUN mamba env create -f plant_environment.yml && conda clean --all -fy
-#RUN cd /tmp && mamba install --quiet --yes -c conda-forge --file requirements.txt 'opencv' && conda clean --all -f -y
-
-# Install PlantCV Python prerequisites and PlantCV
-RUN cd /tmp && python setup.py install
-
-USER $NB_UID
+#Mamba is orders of magnitude faster
+#currently takes about 4 and a half minutes to setup
+#basically, use this image as an 'environment', and then run your code
+RUN micromamba install -y -n base -f /tmp/plant_environment.yml 
+RUN micromamba clean --all -fy
