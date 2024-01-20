@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 from plantcv import plantcv as pcv
+import plantcv as pcv_all
 
 # Load the image
 class options:
@@ -17,45 +18,24 @@ args = options()
 # Set debug to the global parameter 
 pcv.params.debug = args.debug
 
-# Read image
-img, path, filename = pcv.readimage(filename=args.image)
+# Read in image data (no change)
+img, path, filename = pcv.readimage(filename="rgb_img.png")
 
-# Convert RGB to HSV and extract the saturation channel
-s = pcv.rgb2gray_hsv(rgb_img=img, channel='s')
+# Covert to grayscale colorspace (no change)
+a = pcv.rgb2gray_lab(rgb_img=img, channel='a')
 
-# Threshold the saturation image
-s_thresh = pcv.threshold.binary(gray_img=s, threshold=85, max_value=255, object_type='dark')
+# Threshold/segment plant from background (removed max_value)
+bin_mask = pcv.threshold.binary(gray_img=a, threshold=100, object_type="light")
 
-# Median Blur
-s_mblur = pcv.median_blur(gray_img=s_thresh, ksize=5)
-s_cnt = pcv.median_blur(gray_img=s_thresh, ksize=5)
+# Define ROI (reduced outputs)
+roi = pcv.roi.rectangle(img=img, x=100, y=100, h=100, w=100)
 
-# Find objects
-id_objects, obj_hierarchy = pcv.find_objects(img=img, mask=s_cnt)
+# Filter binary image to make a clean mask based on ROI 
+# (no longer needs `pcv.find_objects` or `pcv.object_composition`)
+mask = pcv.roi.filter(mask=bin_img, roi=roi, roi_type="partial")
 
-# Define region of interest (ROI)
-roi1, roi_hierarchy= pcv.roi.rectangle(img=img, x=100, y=100, h=200, w=200)
+# Extract shape traits from plant
+shape_img = pcv.analyze.size(img=img,labeled_mask=mask, n_labels=1)
 
-# Decide which objects to keep
-roi_objects, hierarchy, kept_mask, obj_area = pcv.roi_objects(img=img, roi_contour=roi1, 
-                                                              roi_hierarchy=roi_hierarchy,
-                                                              object_contour=id_objects, 
-                                                              obj_hierarchy=obj_hierarchy,
-                                                              roi_type='partial')
-
-# Object combine kept objects
-obj, mask = pcv.object_composition(img=img, contours=roi_objects, hierarchy=hierarchy)
-
-# Find shape properties, output shape image (optional)
-shape_img = pcv.analyze_object(img=img, obj=obj, mask=mask)
-
-# Output shape data
-#pcv.print_results(filename=args.result)
-
-# The output filepath
-output_image_filepath = "/mnt/data/shape_img.jpg"
-
-# Save the output
-cv2.imwrite(output_image_filepath, shape_img)
-
-output_image_filepath
+# Save out data to file
+pcv.outputs.save_results(filename="results.txt", outformat="json")

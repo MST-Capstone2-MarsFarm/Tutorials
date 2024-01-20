@@ -2,5 +2,4 @@
 sudo docker build --tag plant_container install/.
 
 #then do this in main directory 
-sudo docker run -it --rm --mount type=bind,source="$(pwd)"/,target=/your_code plant_container bash
-sudo docker run -v "$(pwd)"/your_code plant_container
+sudo docker run -it --rm --mount type=bind,source="$(pwd)"/,target=/your_code -w /your_code plant_container bash

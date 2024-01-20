@@ -1,12 +1,10 @@
-name: plantenv
+name: plantenv_pcv3
 channels:
   - bioconda
   - conda-forge
 dependencies:
-  - python=3.11
+  #3.10 needed for plantcv v3.14.3
+  - python=3.10
   - pip
-  - anaconda::pandas
   - anaconda::opencv
-  - conda-forge::plantcv
-  - pip:
-    - parallel-pandas
+  - conda-forge::plantcv=3.14.3
