@@ -9,7 +9,7 @@ binary_mask = pcv.threshold.binary(gray_img=a, threshold=85, max_value=255, obje
 contours, hierarchy = pcv.find_objects(img, binary_mask)
 
 # Cluster contours and split the image
-out = pcv.cluster_contour_splitimg(rgb_img=img, grouped_contour_indices=contours)
+out = pcv.cluster_contour_splitimg(img=img, grouped_contour_indexes=contours, hierarchy=hierarchy)
 
 # Each element in 'out' is an image containing a single plant
 for i, plant_img in enumerate(out):
