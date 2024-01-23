@@ -6,5 +6,8 @@ dependencies:
   #3.10 needed for plantcv v3.14.3
   - python=3.10
   - pip
-  - anaconda::opencv
-  - conda-forge::plantcv=3.14.3
+  - pip:
+    - plantcv==3.13.0
+    - opencv-python
+  #- anaconda::opencv
+  #- conda-forge::plantcv

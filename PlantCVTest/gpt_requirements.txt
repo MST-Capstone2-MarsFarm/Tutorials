@@ -1,0 +1,2 @@
+plantcv==4.2.1
+opencv-python

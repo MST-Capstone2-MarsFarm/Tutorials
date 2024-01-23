@@ -16,7 +16,7 @@ class Options:
 args = Options()
 
 # Set debug to the global parameter 
-pcv.params.debug = args.debug
+#pcv.params.debug = args.debug
 
 # Read image
 img, _, _ = pcv.readimage(filename=args.image, mode='native')
@@ -33,12 +33,6 @@ a_fill = pcv.fill(bin_img=s_thresh, size=200)
 # The output filepath
 output_image_filepath = "outputs/shape_img.jpg"
 
-# Save the output image
-# Assuming 'analysis_images' is a list of images, you can save the first one or modify as needed
-cv2.imwrite(output_image_filepath, a_fill)
-
-sys.exit(1)
-
 # Median Blur
 #s_mblur = pcv.median_blur(gray_img=s_thresh, ksize=5)
 
@@ -49,8 +43,14 @@ roi = pcv.roi.rectangle(img=img, x=100, y=100, h=200, w=200)
 # (no longer needs `pcv.find_objects` or `pcv.object_composition`)
 mask = pcv.roi.filter(mask=s_thresh, roi=roi, roi_type="partial")
 
-print(mask.shape)
+cv2.imwrite("test.png", mask)
+sys.exit(1)
 
+labeled_objects, n_obj = pcv.create_labels(mask=mask)
+
+analysis_image = pcv.analyze.size(img=img, labeled_mask=labeled_objects, n_labels=n_obj)
+
+cv2.imwrite("test.png", analysis_image)
 sys.exit(1)
 
 # Extract shape traits from plant
