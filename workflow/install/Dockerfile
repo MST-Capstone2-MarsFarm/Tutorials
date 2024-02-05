@@ -13,5 +13,7 @@ COPY --chown=$MAMBA_USER:$MAMBA_USER plant_environment.yml /tmp/plant_environmen
 # Install PlantCV
 #Mamba is orders of magnitude faster
 #basically, use this image as an 'environment', and then run your code
-RUN micromamba install -y -n base -f /tmp/plant_environment.yml
+#put each install on a separate line so that each install can be cached if you delete or add a dependency
+RUN micromamba install -y -n base conda-forge::plantcv
+RUN micromamba install -y -n base conda-forge::opencv
 RUN micromamba clean --all -fy

@@ -1,0 +1,10 @@
+name: plantenv_pcv4_basic
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  #3.10 needed for plantcv v3.14.3
+  - python
+  - plantcv
+  - opencv
+  - pip
