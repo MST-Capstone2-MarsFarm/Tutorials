@@ -1,1 +1,4 @@
 **/plantenv/
+**/ipynb_checkpoints/
+**/__pycache__/
+**/arabidopsis_results
