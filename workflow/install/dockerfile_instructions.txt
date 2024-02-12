@@ -1,0 +1,8 @@
+#do this first (in main directory)
+sudo docker build --tag plant_container install/.
+
+#then do this in main directory 
+sudo docker run -it --rm --mount type=bind,source="$(pwd)"/,target=/your_code -w /your_code plant_container bash\
+
+#creating bare mamba environment
+mamba env create --file=/home/ajc3xc/projects/Arabidopsis/workflow/install/plant_environment.yml

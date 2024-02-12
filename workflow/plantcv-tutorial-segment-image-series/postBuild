@@ -1,0 +1,14 @@
+# Clone PlantCV
+git clone https://github.com/danforthcenter/plantcv.git
+
+# Enter the PlantCV directory
+cd plantcv
+
+conda env create -n plantcv -f environment.yml
+
+conda activate plantcv
+
+# Install PlantCV in editable mode so that it updates as you work on new features/updates
+pip install -e .
+
+git checkout --track origin/watershed-segmentation
