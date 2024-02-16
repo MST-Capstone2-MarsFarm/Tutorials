@@ -1,0 +1,17 @@
+,trait,method,scale,datatype,value,label
+in_bounds,whether the plant goes out of bounds ,plantcv.plantcv.within_frame,none,<class 'bool'>,True,none
+area,area,plantcv.plantcv.analyze.size,pixels,<class 'int'>,1879.0,pixels
+convex_hull_area,convex hull area,plantcv.plantcv.analyze.size,pixels,<class 'int'>,7511.0,pixels
+solidity,solidity,plantcv.plantcv.analyze.size,none,<class 'float'>,0.2501664225802157,none
+perimeter,perimeter,plantcv.plantcv.analyze.size,pixels,<class 'int'>,650.9432128667831,pixels
+width,width,plantcv.plantcv.analyze.size,pixels,<class 'int'>,55,pixels
+height,height,plantcv.plantcv.analyze.size,pixels,<class 'int'>,231,pixels
+longest_path,longest path,plantcv.plantcv.analyze.size,pixels,<class 'int'>,1222,pixels
+center_of_mass,center of mass,plantcv.plantcv.analyze.size,none,<class 'tuple'>,"(287.23257051623204, 217.9765832889835)","('x', 'y')"
+convex_hull_vertices,convex hull vertices,plantcv.plantcv.analyze.size,none,<class 'int'>,15,none
+object_in_frame,object in frame,plantcv.plantcv.analyze.size,none,<class 'bool'>,True,none
+ellipse_center,ellipse center,plantcv.plantcv.analyze.size,none,<class 'tuple'>,"(297.569580078125, 242.7325897216797)","('x', 'y')"
+ellipse_major_axis,ellipse major axis length,plantcv.plantcv.analyze.size,pixels,<class 'int'>,201.4290771484375,pixels
+ellipse_minor_axis,ellipse minor axis length,plantcv.plantcv.analyze.size,pixels,<class 'int'>,45.53569793701172,pixels
+ellipse_angle,ellipse major axis angle,plantcv.plantcv.analyze.size,degrees,<class 'float'>,2.0845561027526855,degrees
+ellipse_eccentricity,ellipse eccentricity,plantcv.plantcv.analyze.size,none,<class 'float'>,0.9741126414186411,none
