@@ -4,7 +4,7 @@ git clone https://github.com/danforthcenter/plantcv.git
 # Enter the PlantCV directory
 cd plantcv
 
-conda env create -n plantcv -f environment.yml
+mamba env create -n plantcv -f environment.yml
 
 conda activate plantcv
 
