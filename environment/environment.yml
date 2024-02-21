@@ -8,6 +8,7 @@ dependencies:
   - jupyterlab
   - ipympl
   - pyarrow
+  - openpyxl
   - pip
   - pip:
     - plantcv==4.2.1

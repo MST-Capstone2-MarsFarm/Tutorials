@@ -1,15 +1,23 @@
+import os
 import pandas as pd
-import os, glob.glob
 
-def convert_to_csv(input_sheets_path: str, output_csv_path: str):
-    pass
+# Specify the directory containing the .xlsx files
+source_directory = '/mnt/stor/ceph/csb/marsfarm/projects/marsfarm_image_analysis/inputs/environment_data_sheets'
+# Specify the target directory for the .csv files
+target_directory = '/mnt/stor/ceph/csb/marsfarm/projects/marsfarm_image_analysis/inputs/environment_data_csv'
 
-input_sheets_folder = "/mnt/stor/ceph/csb/marsfarm/projects/marsfarm_image_analysis/inputs/environment_data_sheets"
-output_csvs_folder = "/mnt/stor/ceph/csb/marsfarm/projects/marsfarm_image_analysis/inputs/environment_data_csv"
+# List all files in the source directory
+for filename in os.listdir(source_directory):
+    # Check if the file is an Excel file
+    if filename.endswith('.xlsx'):
+        # Construct the full file path
+        file_path = os.path.join(source_directory, filename)
+        # Read the Excel file
+        df = pd.read_excel(file_path)
+        
+        # Construct the target CSV file path
+        csv_file_path = os.path.join(target_directory, filename.replace('.xlsx', '.csv'))
+        # Save the DataFrame to CSV
+        df.to_csv(csv_file_path, index=False)
 
-input_pattern = os.path.join(input_sheets_folder, '*.xlsx')
-
-xlsx_files = glob(input_pattern)
-
-csv_output_files = [os.path.join(dest_dir, os.path.basename(x).replace('.xlsx', '.csv')) for x in xlsx_files]
-
+print("Conversion completed.")
