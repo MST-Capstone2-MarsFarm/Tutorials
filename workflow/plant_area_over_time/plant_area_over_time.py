@@ -34,29 +34,15 @@ hours_from_start = [(unix_time // 3600) for unix_time in unix_times_from_start]
 
 file_names = sorted([os.path.join(input_folder, file) for file in os.listdir(input_folder)])
 
-file_names_series = pd.Series(file_names[:100])
+file_names_series = pd.Series(file_names)
+print(len(file_names_series))
 areas = file_names_series.p_map(get_area).tolist()
-#print(areas)
 
-graph_dataframe = pd.DataFrame({"area": areas[:100], "hours_from_start": hours_from_start[:100]})
+graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_start[:100]})
 
 #since the differentials in time are so small, having a 50% spike margin seems like a somewhat reasonable guess that won't remove normal observations
 condition = graph_dataframe['area'] > 1.5 * graph_dataframe['area'].shift(1)
 filtered_df = graph_dataframe[~condition | graph_dataframe.index.isin([0])]
-
-
-'''
-# Calculate the IQR
-Q1 = graph_dataframe['area'].quantile(0.25)
-Q3 = graph_dataframe['area'].quantile(0.75)
-IQR = Q3 - Q1
-
-# Define bounds for outliers
-upper_bound = Q3 + 1.5 * IQR
-
-print(upper_bound)
-# Filter out outliers
-filtered_df = graph_dataframe[graph_dataframe['area'] <= upper_bound]'''
 
 plt.clf()
 plt.plot(filtered_df['hours_from_start'], filtered_df['area'], marker='o')
@@ -64,12 +50,3 @@ plt.title("Plant area over time")
 plt.xlabel("Time (hours)")
 plt.ylabel("Plant area (pixels)")
 plt.savefig('test.png')
-
-
-
-#print([picture_names_list[0], picture_names_list[2]])
-#print([time_dates_military[0], time_dates_military[2]])
-#print([time_dates_stripped[0], time_dates_stripped[2]])
-#print([unix_times_from_start[0], unix_times_from_start[2]])
-#print(hours_from_start)
-#print(file_names)
