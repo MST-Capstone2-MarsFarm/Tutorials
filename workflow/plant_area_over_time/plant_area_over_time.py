@@ -38,7 +38,7 @@ file_names_series = pd.Series(file_names)
 print(len(file_names_series))
 areas = file_names_series.p_map(get_area).tolist()
 
-graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_start[:100]})
+graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_start})
 
 #since the differentials in time are so small, having a 50% spike margin seems like a somewhat reasonable guess that won't remove normal observations
 condition = graph_dataframe['area'] > 1.5 * graph_dataframe['area'].shift(1)
