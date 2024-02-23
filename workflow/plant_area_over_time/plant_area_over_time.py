@@ -42,25 +42,26 @@ hours_from_start = [(unix_time // 3600) for unix_time in unix_times_from_start]
 file_names = sorted([os.path.join(input_folder, file) for file in os.listdir(input_folder)])
 limit_size = -1
 file_names_series = pd.Series(file_names)
-print(len(file_names_series))
+#print(len(file_names_series))
 
 #calculate the areas
 #get from cache if already calculated (as csv file)
-if os.path.isfile("areas.csv"): areas = pd.read_csv("areas.csv").values.tolist()
+if os.path.isfile("areas.csv"): areas = pd.read_csv("areas.csv")['0']
 else:
     areas_series = file_names_series.parallel_map(get_area)
     areas_series.to_csv("areas.csv", index=False)
     areas = areas_series.tolist()
 
 graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_start})
-graph_dataframe['pct_change'] = graph_dataframe['area'].pct_change().iloc[1:]
+graph_dataframe['pct_change'] = graph_dataframe['area'].pct_change()
+graph_dataframe = graph_dataframe.iloc[1:]
 
 pct_change_list = graph_dataframe['pct_change'].tolist()
 
 up_spike = False
 down_spike = False
 indeces_to_keep = []
-spike_level = 1
+spike_level = .5
 for i in range(len(pct_change_list)):
     #up spike
     if pct_change_list[i] > spike_level and not down_spike:
@@ -93,4 +94,11 @@ plt.plot(filtered_df['hours_from_start'], filtered_df['area'], marker='o')
 plt.title("Plant area over time")
 plt.xlabel("Time (hours)")
 plt.ylabel("Plant area (pixels)")
-plt.savefig('test.png')
+plt.savefig('filtered.png')
+
+plt.clf()
+plt.plot(graph_dataframe['hours_from_start'], graph_dataframe['area'], marker='o')
+plt.title("Plant area over time")
+plt.xlabel("Time (hours)")
+plt.ylabel("Plant area (pixels)")
+plt.savefig('unfiltered.png')
