@@ -3,7 +3,9 @@ import numpy as np
 from plantcv import plantcv as pcv
 import pandas as pd
 from pandarallel import pandarallel
-pandarallel.initialize(progress_bar = True)
+from scipy.signal import lfilter
+from copy import deepcopy
+pandarallel.initialize(verbose=0, progress_bar = True)
 
 import matplotlib.pyplot as plt
 import gc
@@ -53,11 +55,26 @@ else:
     areas = areas_series.tolist()
 
 graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_start})
+
+#filtered_df = deepcopy(graph_dataframe)
+
+#filter dataframe using difference and iqr instead of relative difference
+graph_dataframe['diff'] = graph_dataframe['area'].diff()
+graph_dataframe.loc[0, 'diff'] = 0
+Q1 = graph_dataframe['diff'].quantile(.25)
+Q3 = graph_dataframe['diff'].quantile(.75)
+IQR = Q3 - Q1
+print(IQR)
+filtered_df = graph_dataframe[~((graph_dataframe['diff'] < (Q1 - 1.5 * IQR)) | (graph_dataframe['diff'] > (Q3 + 1.5 * IQR)))]
+#print(graph_dataframe['diff'].median())
+#print(graph.quan)
+#graph_dataframe['diff'].to_csv('diff.csv', index=False)
 graph_dataframe['pct_change'] = graph_dataframe['area'].pct_change()
-graph_dataframe = graph_dataframe.iloc[1:]
+graph_dataframe.loc[0, 'pct_change'] = 0
 
 pct_change_list = graph_dataframe['pct_change'].tolist()
 
+#filter out large spikes in data
 up_spike = False
 down_spike = False
 indeces_to_keep = []
@@ -80,7 +97,15 @@ for i in range(len(pct_change_list)):
     else:
         indeces_to_keep.append(i)
     
-filtered_df = graph_dataframe.iloc[indeces_to_keep]        
+#filtered_df = graph_dataframe.iloc[indeces_to_keep]
+
+#graph filtered data
+
+n = len(graph_dataframe)
+b = [1.0 / n] * n
+a = 1
+filtered_df['smoothed'] = lfilter(b, a, filtered_df['area'].tolist())
+filtered_df['rolling_mean'] = filtered_df['area'].rolling(window=5).mean()     
 #print(pct_change_list)
 #filtered_df = graph_dataframe[graph_dataframe['pct_change'].abs() <= 0.5]
 #print(filtered_df['pct_change'].tolist())
@@ -89,16 +114,23 @@ filtered_df = graph_dataframe.iloc[indeces_to_keep]
 #condition = graph_dataframe['area'] > 1.5 * graph_dataframe['area'].shift(1)
 #filtered_df = graph_dataframe[~condition | graph_dataframe.index.isin([0])]
 
-plt.clf()
-plt.plot(filtered_df['hours_from_start'], filtered_df['area'], marker='o')
-plt.title("Plant area over time")
-plt.xlabel("Time (hours)")
-plt.ylabel("Plant area (pixels)")
-plt.savefig('filtered.png')
+
 
 plt.clf()
-plt.plot(graph_dataframe['hours_from_start'], graph_dataframe['area'], marker='o')
-plt.title("Plant area over time")
-plt.xlabel("Time (hours)")
-plt.ylabel("Plant area (pixels)")
-plt.savefig('unfiltered.png')
+fig, axes = plt.subplots(2, 2, sharex=True, sharey=True, figsize=(10,8))
+fig.suptitle("Plant Area Over Time")
+
+axes[0,0].plot(graph_dataframe['hours_from_start'], graph_dataframe['area'])
+axes[0,0].set_title("Raw Results")
+axes[0,1].plot(filtered_df['hours_from_start'], filtered_df['area'])
+axes[0,0].set_title("50% Difference Removals")
+axes[1,0].plot(filtered_df['hours_from_start'], filtered_df['rolling_mean'])
+axes[0,0].set_title("50% Difference + Rolling Mean")
+axes[1,1].plot(filtered_df['hours_from_start'], filtered_df['smoothed'])
+axes[0,0].set_title("50% Difference Smoothed")
+
+for ax in axes.flat:
+    ax.set(xlabel="Time (hours)", ylabel="Plant area (pixels)")
+plt.tight_layout()
+
+plt.savefig("results.png")
