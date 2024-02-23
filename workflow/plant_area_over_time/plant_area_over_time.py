@@ -61,45 +61,50 @@ graph_dataframe = pd.DataFrame({"area": areas, "hours_from_start": hours_from_st
 #filter dataframe using difference and iqr instead of relative difference
 graph_dataframe['diff'] = graph_dataframe['area'].diff()
 graph_dataframe.loc[0, 'diff'] = 0
+graph_dataframe['diff'].to_csv('diff.csv', header=False, index=False)
 Q1 = graph_dataframe['diff'].quantile(.25)
 Q3 = graph_dataframe['diff'].quantile(.75)
 IQR = Q3 - Q1
-print(IQR)
-filtered_df = graph_dataframe[~((graph_dataframe['diff'] < (Q1 - 1.5 * IQR)) | (graph_dataframe['diff'] > (Q3 + 1.5 * IQR)))]
-#print(graph_dataframe['diff'].median())
-#print(graph.quan)
-#graph_dataframe['diff'].to_csv('diff.csv', index=False)
-graph_dataframe['pct_change'] = graph_dataframe['area'].pct_change()
-graph_dataframe.loc[0, 'pct_change'] = 0
+#print(IQR)
+#print(Q1 - 1.5 * IQR)
+#print(Q3 + 1.5 * IQR)
+#find the values with a large variation
 
-pct_change_list = graph_dataframe['pct_change'].tolist()
+#keep looping until all of the spikes are removed
+filtered_df = deepcopy(graph_dataframe)
+tail_ends = []
+spike_length = 1
 
-#filter out large spikes in data
-up_spike = False
-down_spike = False
-indeces_to_keep = []
-spike_level = .5
-for i in range(len(pct_change_list)):
-    #up spike
-    if pct_change_list[i] > spike_level and not down_spike:
-        up_spike = True
-    #return to normal from up spike
-    elif pct_change_list[i] < -(spike_level * .75) and up_spike:
-        up_spike = False 
-        indeces_to_keep.append(i)
-    #down spike
-    elif pct_change_list[i] < -spike_level and not up_spike:
-        down_spike = True
-    #return to normal from down spike
-    elif pct_change_list[i] > (spike_level * .75) and down_spike:
-        down_spike = False
-        indeces_to_keep.append(i)
-    else:
-        indeces_to_keep.append(i)
+#5 seems like a reasonable length to prepare for in case of a plateau
+while spike_length < 5:
+    #first get the pool of anomolous changes in area by finding the ones outside of iqr of the original graph
+    filtered_df['diff'] = filtered_df['area'].diff()
+    filtered_df.loc[0, 'diff'] = 0
+    #find all columns that increase a lot or decrease a lot
+    columns_to_remove_increase = filtered_df[(filtered_df['diff'] > (Q3 + 1.5 * IQR)) & ~filtered_df.index.isin(tail_ends)]
+    columns_to_remove_decrease = filtered_df[(filtered_df['diff'] < (Q1 - 1.5 * IQR)) & ~filtered_df.index.isin(tail_ends)]
+    columns_to_remove_inc_list = columns_to_remove_increase.index.tolist()
+    columns_to_remove_dec_list = columns_to_remove_decrease.index.tolist()
+    columns_to_remove_list = sorted(columns_to_remove_dec_list + columns_to_remove_inc_list)
+    print(f"potential columns to remove {columns_to_remove_list}")
     
-#filtered_df = graph_dataframe.iloc[indeces_to_keep]
+    #filter out the large jumps to only select spikes (i.e. values that jump one way and then another very quickly)
+    #only remove the values that spike (i.e. quickly come up and down) for everything except the last element in (spike_length) group of elements
+    selected_values = [columns_to_remove_inc_list[i] for i in range(len(columns_to_remove_inc_list) - 1) if (columns_to_remove_inc_list[i] + spike_length in columns_to_remove_dec_list) or i==len(graph_dataframe)-1]
+    selected_values.extend([columns_to_remove_dec_list[i] for i in range(len(columns_to_remove_dec_list) - 1) if (columns_to_remove_dec_list[i] + spike_length in columns_to_remove_inc_list) or i==len(graph_dataframe)-1])
 
-#graph filtered data
+    tail_ends.extend([selected_value+spike_length for selected_value in selected_values])
+    tail_ends.sort()
+    selected_values = [num for i in selected_values for num in tuple(range(i, i + spike_length))]
+    print(f"selected values {selected_values}")
+    print(f"tail ends: {tail_ends}")
+    print()
+    #exit the loop if no values to remove were found
+    #if not selected_values: break
+    filtered_df = filtered_df[~filtered_df.index.isin(selected_values)]
+    spike_length += 1
+
+
 
 n = len(graph_dataframe)
 b = [1.0 / n] * n
