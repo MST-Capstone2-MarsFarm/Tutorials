@@ -1,0 +1,121 @@
+2024-03-11 09:52:57,932 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:33365'
+2024-03-11 09:52:57,938 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:43023'
+2024-03-11 09:52:57,941 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:36023'
+2024-03-11 09:52:57,944 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:33583'
+2024-03-11 09:52:57,968 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:43835'
+2024-03-11 09:52:57,970 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:33791'
+2024-03-11 09:52:57,971 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:40911'
+2024-03-11 09:52:57,973 - distributed.nanny - INFO -         Start Nanny at: 'tcp://10.200.0.32:46243'
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:40665
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:36739
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:41259
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:37013
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:42561
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:38579
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:34585
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:40665
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:36739
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:41259
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:37013
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:38579
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:42561
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-6
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:34585
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-0
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-7
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-1
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-3
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-5
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:45835
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-4
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:39097
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:45181
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:42935
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:46113
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Start worker at:    tcp://10.200.0.32:35155
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:40141
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:39227
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          Listening to:    tcp://10.200.0.32:35155
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -           Worker name:    leaf_identification-8-2
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO -          dashboard at:          10.200.0.32:44283
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-u0gbm8ys
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO - Waiting to connect to:   tcp://10.200.3.219:35965
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-e3xs6d9b
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-1du9dfnz
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-tik9svjb
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-6jvzdo15
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-bnip8zhi
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-g081ykg3
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -               Threads:                          8
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:52:59,024 - distributed.worker - INFO -                Memory:                  29.80 GiB
+2024-03-11 09:52:59,024 - distributed.worker - INFO -       Local Directory: /tmp/dask-scratch-space/worker-1f5t0wuc
+2024-03-11 09:52:59,024 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,916 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,916 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,916 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,916 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,916 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,916 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,917 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,917 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,917 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,917 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,917 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,917 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,917 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,917 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,918 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,918 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,918 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,918 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,918 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,918 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,919 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,919 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,919 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,919 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,919 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,920 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,921 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,921 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+2024-03-11 09:53:00,927 - distributed.worker - INFO - Starting Worker plugin shuffle
+2024-03-11 09:53:00,928 - distributed.worker - INFO -         Registered to:   tcp://10.200.3.219:35965
+2024-03-11 09:53:00,928 - distributed.worker - INFO - -------------------------------------------------
+2024-03-11 09:53:00,930 - distributed.core - INFO - Starting established connection to tcp://10.200.3.219:35965
+slurmstepd-compute-41-17: error: *** JOB 26462 ON compute-41-17 CANCELLED AT 2024-03-11T09:53:02 ***

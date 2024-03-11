@@ -3,9 +3,8 @@ import numpy as np
 from plantcv import plantcv as pcv
 import cv2
 from pandarallel import pandarallel
-pandarallel.initialize(progress_bar=True)
+#pandarallel.initialize(progress_bar=True)
 
-from swifter import set_defaults
 from pathlib import Path, PosixPath
 from shutil import copy
 import os, sys
@@ -36,6 +35,10 @@ parameters_df = pd.DataFrame({"Input_Path": input_str_file_paths, "Output_Path":
 def filter_images(input_path: str, output_path: str):
     #plantcv's readimage uses opencv's imread as a backend
     image, _, _ = pcv.readimage(input_path)
+    #image = cv2.imread(input_path)
+    #if image is None:
+    #    print(f"{input_path} is didn't load")
+    #    return
     
     # Convert the image from RGB to HSV
     hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
@@ -67,12 +70,13 @@ def filter_images(input_path: str, output_path: str):
 #pandarallel took 25 seconds on 1 general node
 #27.1345 seconds on head node
 
-#start_time = time()
-parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
-#print(time() - start_time)
+import mapply
+mapply.init(n_workers=-1, chunk_size=1, progressbar=True)
 
-def test_function(arg1, arg2):
-    print(f"{arg1}, {arg2}")
+start_time = time()
+#parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+parameters_df.mapply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+print(time() - start_time)
 
 '''from dask_jobqueue import SLURMCluster
 from dask.distributed import Client
@@ -89,8 +93,8 @@ cluster = SLURMCluster(
 cluster.adapt(minimum_jobs=1)
 client = Client(cluster)
 
-dask_df = dd.from_pandas(parameters_df, npartitions = len(parameters_df))
-result = dask_df.apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)'''
+dask_df = dd.from_pandas(parameters_df, npartitions = len(parameters_df) - 1)'''
+#result = dask_df.apply(lambda row: test_function(row['Input_Path'], row['Output_Path']), axis=1)
 #result.compute()
 
 
