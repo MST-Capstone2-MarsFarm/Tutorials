@@ -65,8 +65,10 @@ def filter_images(input_path: str, output_path: str):
     #using 20k pixels as a lowball starting point
     #trying to make sure we get as many plant photos as possible
     #using shutil.copy to make things quicker
-    if count_non_black > 20000:
+    if count_non_black > 30000:
         copy(input_path, output_path)
+        return 1
+    return 0
 
 #pandarallel apply
 #pandarallel took 25 seconds on 1 general node
@@ -75,8 +77,9 @@ def filter_images(input_path: str, output_path: str):
 #timing pandarallel vs mapply, pandarallel got 17 seconds and mapply got 25, so I'll use pandarallel.
 #plantcv is about twice as fast as PIL for reading in the file
 start_time = time()
-parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+kept = parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
 print(time() - start_time)
+print(len(kept) / len(parameters_df))
 
 '''from dask_jobqueue import SLURMCluster
 from dask.distributed import Client
