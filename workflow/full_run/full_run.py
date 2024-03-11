@@ -3,7 +3,7 @@ import numpy as np
 from plantcv import plantcv as pcv
 import cv2
 from pandarallel import pandarallel
-#pandarallel.initialize(progress_bar=True)
+pandarallel.initialize(progress_bar=True)
 
 from pathlib import Path, PosixPath
 from shutil import copy
@@ -70,12 +70,9 @@ def filter_images(input_path: str, output_path: str):
 #pandarallel took 25 seconds on 1 general node
 #27.1345 seconds on head node
 
-import mapply
-mapply.init(n_workers=-1, chunk_size=1, progressbar=True)
-
+#timing pandarallel vs mapply, pandarallel got 17 seconds and mapply got 25, so I'll use pandarallel.
 start_time = time()
-#parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
-parameters_df.mapply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
 print(time() - start_time)
 
 '''from dask_jobqueue import SLURMCluster
