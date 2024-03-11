@@ -12,4 +12,5 @@ sleep 5
 echo "use this node name for the ssh command to run jupyter on a browser"
 echo $compute_node_name
 echo "$(squeue --noheader -u $(whoami) --format=%N | tail -n 1)"
+echo 
 wait

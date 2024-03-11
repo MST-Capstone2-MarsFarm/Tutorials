@@ -1,4 +1,4 @@
-name: plantenv_pcv4_jupyter
+name: plantenv_distributed
 channels:
   - bioconda
   - conda-forge
@@ -10,6 +10,8 @@ dependencies:
   - pyarrow
   - openpyxl
   - pandarallel
+  - swifter
+  - dask-jobqueue
   - pip
   - pip:
     - plantcv==4.2.1
