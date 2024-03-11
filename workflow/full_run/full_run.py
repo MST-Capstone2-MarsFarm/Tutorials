@@ -1,4 +1,4 @@
-#import pandas as pd
+import pandas as pd
 #import plantcv as pcv
 #import swifter
 from pathlib import Path, PosixPath
@@ -20,9 +20,12 @@ output_folder_path = Path("/mnt/stor/ceph/csb/marsfarm/projects/leaf_detection/o
 def create_output_file(input_file_path: PosixPath):
     output_path = output_folder_path / input_file_path.parent.name / input_file_path.name
     output_path.parent.mkdir(parents=True, exist_ok=True)
-    return output_path
-file_output_paths = tuple(create_output_file(input_file_path) for input_file_path in full_input_paths)
-
+    return str(output_path)
+file_output_paths = [create_output_file(input_file_path) for input_file_path in full_input_paths]
+input_str_file_paths = tuple(str(input_path) for input_path in full_input_paths)
+print(file_output_paths)
+#parameters_df = pd.DataFrame({"Input_Path": input_str_file_paths, "Output_Path": file_output_paths})
+#print(parameters_df)
 
 #testing for one small dataset
 #df['input_path'] = None
