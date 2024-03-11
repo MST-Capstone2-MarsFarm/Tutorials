@@ -68,13 +68,13 @@ def filter_images(input_path: str, output_path: str):
 #27.1345 seconds on head node
 
 #start_time = time()
-#parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
 #print(time() - start_time)
 
 def test_function(arg1, arg2):
     print(f"{arg1}, {arg2}")
 
-from dask_jobqueue import SLURMCluster
+'''from dask_jobqueue import SLURMCluster
 from dask.distributed import Client
 import dask.dataframe as dd
 
@@ -89,7 +89,9 @@ cluster = SLURMCluster(
 cluster.adapt(minimum_jobs=1)
 client = Client(cluster)
 
-
+dask_df = dd.from_pandas(parameters_df, npartitions = len(parameters_df))
+result = dask_df.apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)'''
+#result.compute()
 
 
 #import swifter
