@@ -67,7 +67,43 @@ def filter_images(input_path: str, output_path: str):
 #pandarallel took 25 seconds on 1 general node
 #27.1345 seconds on head node
 
+#start_time = time()
+#parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+#print(time() - start_time)
+
+def test_function(arg1, arg2):
+    print(f"{arg1}, {arg2}")
+
+from dask_jobqueue import SLURMCluster
+from dask.distributed import Client
+import dask.dataframe as dd
+
+cluster = SLURMCluster(
+    cores=64,
+    memory="256 GB",
+    walltime = "2-00:00:00",
+    name="leaf_identification",
+    job_extra=['--partition=general']
+)
+
+cluster.adapt(minimum_jobs=1)
+client = Client(cluster)
+
+
+
+
+#import swifter
+#parameters_df.swifter.apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+
+
+'''from pyspark.sql import SparkSession
+spark = SparkSession.builder.appName("example").getOrCreate()
+
+import pyspark.pandas as ps
+spark_df = ps.DataFrame({"Input_Path": input_str_file_paths, "Output_Path": file_output_paths})
+#took 192 seconds
 start_time = time()
-parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
-print(time() - start_time)
+spark_df.rdd.apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
+print(time() - start_time)'''
+
 #df['input'].swifter.apply(my_func)
