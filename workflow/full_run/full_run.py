@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from plantcv import plantcv as pcv
 import cv2
+from turbojpeg import TurboJPEG
 from pandarallel import pandarallel
 pandarallel.initialize(progress_bar=True)
 
@@ -32,6 +33,7 @@ input_str_file_paths = tuple(str(input_path) for input_path in full_input_paths)
 #print(file_output_paths)
 parameters_df = pd.DataFrame({"Input_Path": input_str_file_paths, "Output_Path": file_output_paths})
 
+jpeg_reader = TurboJPEG()
 def filter_images(input_path: str, output_path: str):
     #plantcv's readimage uses opencv's imread as a backend
     image, _, _ = pcv.readimage(input_path)
@@ -55,7 +57,7 @@ def filter_images(input_path: str, output_path: str):
     plant_pixels = cv2.bitwise_and(image, image, mask=mask)
 
     #convert to grayscale
-    gray_image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    gray_image = cv2.cvtColor(plant_pixels, cv2.COLOR_BGR2GRAY)
 
     # Count all non-zero (non-black) pixels
     count_non_black = cv2.countNonZero(gray_image)
@@ -71,6 +73,7 @@ def filter_images(input_path: str, output_path: str):
 #27.1345 seconds on head node
 
 #timing pandarallel vs mapply, pandarallel got 17 seconds and mapply got 25, so I'll use pandarallel.
+#plantcv is about twice as fast as PIL for reading in the file
 start_time = time()
 parameters_df.parallel_apply(lambda row: filter_images(row['Input_Path'], row['Output_Path']), axis=1)
 print(time() - start_time)

@@ -13,3 +13,4 @@ dependencies:
   - pip
   - pip:
     - plantcv==4.2.1
+    - Pillow-SIMD
