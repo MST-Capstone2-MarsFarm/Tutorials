@@ -52,15 +52,7 @@ def filter_images(input_path: str, output_path: str):
     
     # Threshold the HSV image to get only green colors
     mask = cv2.inRange(hsv, lower_green, upper_green)
-    
-    # Bitwise-AND mask and original image to extract green parts
-    plant_pixels = cv2.bitwise_and(image, image, mask=mask)
-
-    #convert to grayscale
-    gray_image = cv2.cvtColor(plant_pixels, cv2.COLOR_BGR2GRAY)
-
-    # Count all non-zero (non-black) pixels
-    count_non_black = cv2.countNonZero(gray_image)
+    count_non_black = cv2.countNonZero(mask)
     
     #using 20k pixels as a lowball starting point
     #trying to make sure we get as many plant photos as possible
