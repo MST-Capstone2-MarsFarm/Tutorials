@@ -1,4 +1,4 @@
-import sys, os
+#external modules
 import numpy as np
 import math
 
