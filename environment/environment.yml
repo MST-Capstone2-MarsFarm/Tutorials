@@ -1,0 +1,11 @@
+name: plantenv
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  #3.10 needed for plantcv v3.14.3
+  - python=3.11
+  - pandarallel
+  - pip
+  - pip:
+    - plantcv==4.2.1
