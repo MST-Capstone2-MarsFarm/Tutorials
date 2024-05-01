@@ -4,7 +4,7 @@ import numpy as np
 from skimage import morphology
 from calculate_rois import auto_roi
 
-image_path = "example_path.png"
+image_path = "plant_image.png"
 
 img, _, _ = pcv.readimage(image_path)
 
@@ -43,5 +43,3 @@ centers, optimal_radius_size = auto_roi(labeled_image)
 
 #now that this is calculated, use pcv.roi.multi to automatically generate the rois
 rois = pcv.roi.multi(img=img, coord=centers, radius=optimal_radius_size)
-
-
