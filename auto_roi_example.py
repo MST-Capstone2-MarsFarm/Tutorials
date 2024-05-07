@@ -4,9 +4,9 @@ import numpy as np
 from skimage import morphology
 from calculate_rois import auto_roi
 
-image_path = "plant_image.png"
+image_path = "plant_image.jpg"
 
-img, _, _ = pcv.readimage(image_path)
+img, path, filename = pcv.readimage(filename=image_path)
 
 #mask the image with an example mask. Filter out small areas
 # Convert to HSV and LAB color spaces
@@ -39,7 +39,10 @@ cleaned_mask = morphology.remove_small_objects(combined_mask, min_size=300)
 labeled_image, number_of_plants = pcv.create_labels(mask=cleaned_mask)
 
 #get the centers and optimal radius size
-centers, optimal_radius_size = auto_roi(labeled_image)
+auto_roi = auto_roi(labeled_image)
+centers, optimal_radius_size = auto_roi.get_roi_centers_and_individual_images()
 
 #now that this is calculated, use pcv.roi.multi to automatically generate the rois
 rois = pcv.roi.multi(img=img, coord=centers, radius=optimal_radius_size)
+
+print(rois)

@@ -3,6 +3,6 @@
 set -Eeo pipefail
 # ACTIVATE ANACONDA
 eval "$(conda shell.bash hook)"
-conda activate plantenv_pcv4_jupyter
+conda activate plantenv_auto_roi
 
-python calculate_rois.py
+python auto_roi_example.py

@@ -1,4 +1,4 @@
-name: plantenv
+name: plantenv_auto_roi
 channels:
   - bioconda
   - conda-forge
