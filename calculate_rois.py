@@ -4,15 +4,18 @@ import math
 
 #used to calculate roi points and radius automatically.
 class auto_roi:
-    def __init__(self, labeled_objects_array: np.ndarray=None):
+    def __new__(self, labeled_objects_array: np.ndarray=None):
         self.labeled_objects_array = labeled_objects_array
         #the number of unique plants should all the unique np values from the array that aren't zero
         #since 0 is counted as a number, should be len - 1
         self.num_plants = len(np.unique(self.labeled_objects_array)) - 1
         self.center_points = []
+                
+        return auto_roi.get_roi_centers_and_individual_images(self)
 
     #calculate the euclidean distance between two points
-    def _euclidian_distance(self, point1: tuple, point2: tuple):
+    @staticmethod
+    def _euclidian_distance(point1: tuple, point2: tuple):
         """Calculate the Euclidean distance between two points."""
         return math.sqrt((point1[0] - point2[0])**2 + (point1[1] - point2[1])**2)
 
@@ -33,12 +36,12 @@ class auto_roi:
         if len(self.center_points) <= 1: return 0
         n = len(self.center_points)
     
-        min_distance = self._min_distance_to_edge()
+        min_distance = auto_roi._min_distance_to_edge(self)
     
         #calculate euclidean distances between points and to the edge of the graph
         for i in range(1, n):
             for j in range(i + 1, n):
-                distance = self._euclidian_distance(self.center_points[i], self.center_points[j])
+                distance = auto_roi._euclidian_distance(self.center_points[i], self.center_points[j])
                 min_distance = min(min_distance, distance)
         return math.floor(min_distance)
 
@@ -67,7 +70,9 @@ class auto_roi:
 
                 #calculate the radius of a circle that would fit the entire plant
                 #radius = diameter / 2
-                encapsulating_circle_radius = self._euclidian_distance((min_row, min_col), (max_row, max_col)) // 2
+                point1 = (min_row, min_col)
+                point2 = (max_row, max_col)
+                encapsulating_circle_radius = auto_roi._euclidian_distance(point1, point2) // 2
 
                 #once that's done, then iteratively calculate the max radius size for
                 max_circle_radius_size = max(max_circle_radius_size, encapsulating_circle_radius)
@@ -80,6 +85,6 @@ class auto_roi:
                 print(f"no indices for {number}")
                 continue
         #calculate minimum distance either to edge, distance to another plant, or (the largest radius or any other plant with a floor of 50)
-        optimal_radius_size = min(self._min_no_intersect_euclidean_distance(), encapsulating_circle_radius)
+        optimal_radius_size = min(auto_roi._min_no_intersect_euclidean_distance(self), encapsulating_circle_radius)
         
         return self.center_points, optimal_radius_size

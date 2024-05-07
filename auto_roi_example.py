@@ -39,8 +39,7 @@ cleaned_mask = morphology.remove_small_objects(combined_mask, min_size=300)
 labeled_image, number_of_plants = pcv.create_labels(mask=cleaned_mask)
 
 #get the centers and optimal radius size
-auto_roi = auto_roi(labeled_image)
-centers, optimal_radius_size = auto_roi.get_roi_centers_and_individual_images()
+centers, optimal_radius_size = auto_roi(labeled_image)
 
 #now that this is calculated, use pcv.roi.multi to automatically generate the rois
 rois = pcv.roi.multi(img=img, coord=centers, radius=optimal_radius_size)
