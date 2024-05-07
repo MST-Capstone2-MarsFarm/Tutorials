@@ -10,8 +10,6 @@ class auto_roi:
         #since 0 is counted as a number, should be len - 1
         self.num_plants = len(np.unique(self.labeled_objects_array)) - 1
         self.center_points = []
-        
-        self.get_roi_centers_and_individual_images()
 
     #calculate the euclidean distance between two points
     def _euclidian_distance(self, point1: tuple, point2: tuple):

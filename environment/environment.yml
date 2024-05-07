@@ -6,6 +6,7 @@ dependencies:
   #3.10 needed for plantcv v3.14.3
   - python=3.11
   - pandarallel
+  - jupyter
   - pip
   - pip:
     - plantcv==4.2.1
