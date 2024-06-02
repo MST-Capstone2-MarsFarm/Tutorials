@@ -2,7 +2,7 @@ from plantcv import plantcv as pcv
 import cv2
 import numpy as np
 from skimage import morphology
-from calculate_rois import auto_roi
+from calculate_rois_function import auto_roi
 
 image_path = "plant_image.jpg"
 
