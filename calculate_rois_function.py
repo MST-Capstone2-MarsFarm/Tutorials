@@ -4,7 +4,7 @@ import math
 
 #used to calculate roi points and radius automatically.
 
-def auto_roi(labeled_objects_array: np.ndarray=None):
+def auto_roi(labeled_objects_array: np.ndarray=None) -> list[list[tuple[int, int]], int]:
     labeled_objects_array = labeled_objects_array
     #the number of unique plants should all the unique np values from the array that aren't zero
     #since 0 is counted as a number, should be len - 1
