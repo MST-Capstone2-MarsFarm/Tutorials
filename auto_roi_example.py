@@ -30,18 +30,24 @@ lab_mask = cv2.inRange(lab_image, lab_lower, lab_upper)
 # Combine the masks (logical AND) and apply to the original image
 combined_mask = cv2.bitwise_and(hsv_mask, lab_mask)
 
+# Convert to boolean for skimage processing
+boolean_mask = combined_mask > 0
+
 #remove small holes in the image so object detection won't be as bad
 # Remove small objects
-cleaned_mask = morphology.remove_small_objects(combined_mask, min_size=300)
+cleaned_mask = morphology.remove_small_objects(boolean_mask, min_size=1000)
+cleaned_mask = cleaned_mask.astype(np.uint8) * 255
 
 #generate automatic labels from denoised mask
 #create labels for masks that may have plants, count number of objects
 labeled_image, number_of_plants = pcv.create_labels(mask=cleaned_mask)
 
+cv2.imwrite("mask.jpg", cleaned_mask)
 #get the centers and optimal radius size
 centers, optimal_radius_size = auto_roi(labeled_image)
 
 #now that this is calculated, use pcv.roi.multi to automatically generate the rois
 rois = pcv.roi.multi(img=img, coord=centers, radius=optimal_radius_size)
 
+print(number_of_plants, optimal_radius_size)
 print(rois)
